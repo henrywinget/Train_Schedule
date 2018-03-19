@@ -9,12 +9,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
         crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
 </head>
 
 <body>
     <div class="jumbotron">
         <h1>No Train, No Gain</h1>
-        <p>Faster, better, stronger</p>
+        <p>Harder, better, faster, stronger</p>
     </div>
     <div class="container">
         <div class="panel panel-primary">
@@ -36,14 +39,38 @@
         </div>
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Add a Train</h3>
+                <h3 class="panel-title">Add Train</h3>
             </div>
             <div class="panel-body">
+                <div class = "input group">
+                    <label for="train-name">Train Name</label>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" id ="train-name">
+                    <br>
+                </div>
+                <div class = "input group">
+                    <label for="destination">Destination</label>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" id ="destination">
+                    <br>
+                </div>
+                <div class = "input group">
+                    <label for="first-train">First Train Time (HH:mm - military time)</label>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" id ="first-train">
+                    <br>
+                </div>
+                <div class = "input group">
+                    <label for="freqeuncy">Frequency (min)</label>
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" id="frequency">
+                    <br>
+                </div>
+                <div>
+                <button type="submit" class="btn btn-primary" id="button-submit">Submit</button>
+                </div>
 
             </div>
         </div>
     </div>
     <script src="assets/javascript/app.js"></script>
+    <script src="assets/javascript/moment.js"></script>
 </body>
 
 </html>

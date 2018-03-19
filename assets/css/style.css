@@ -1,0 +1,18 @@
+.jumbotron {
+    text-align: center;
+    background-image: url("../media/tracks.png");
+    width: 100%;
+}
+
+.jumbotron .h1, .jumbotron h1 {
+    color: black;
+}
+
+h1 {
+    background: rgba(255, 255, 255, 0.603);
+}
+
+p {
+    background: rgba(255, 255, 255, 0.603);
+    color: black;
+}
