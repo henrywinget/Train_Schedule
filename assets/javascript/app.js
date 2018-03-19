@@ -50,3 +50,7 @@ $('#button-submit').on('click', function(){
     
     return false;   
 }); 
+
+firebase.database().ref().on("value", function(snapshot){
+
+})
