@@ -1,4 +1,4 @@
-  // Initialize Firebase
+  // Starting Firebase
   var config = {
     apiKey: "AIzaSyDGBL7X3fRVek_Cg4lFN8tLeNnedRq8xMo",
     authDomain: "train-schedule-50591.firebaseapp.com",
@@ -9,13 +9,13 @@
   };
   firebase.initializeApp(config);
 
-      // Create a variable to reference the database
+      // Sets varaible to reference Firebase data
       var database = firebase.database();
 
-      // Button for adding a new train
+      // On clicking submit button, adds a train to the display
 $('#button-submit').on('click', function(){
 
-    //Grabs user input
+    //User input is stored here
     var trainName = $('#train-name').val().trim();
     var destination = $('#destination').val().trim();
     var firstTrain = $('#first-train').val().trim();
@@ -26,7 +26,7 @@ $('#button-submit').on('click', function(){
     console.log(firstTrain);
     console.log(frequency); 
 
-    // Creates local "temporary" object for holding train data
+    // This object will store our data until pushed onto Firebase
     var newTrain = {
         name: trainName,
         dest: destination,
@@ -34,7 +34,7 @@ $('#button-submit').on('click', function(){
         freq: frequency
     }
 
-    //Uploads employee data to the database
+    //Sends data to firebase
     database.ref().push(newTrain);  
 
     console.log(newTrain.name);
@@ -42,7 +42,7 @@ $('#button-submit').on('click', function(){
     console.log(newTrain.first);
     console.log(newTrain.freq);
 
-    // Clears all of the text-boxes
+    // Will clear the values in our inputs
     $('#train-name').val('');   
     $('#destination').val('');   
     $('#first-train').val('');   
@@ -51,6 +51,51 @@ $('#button-submit').on('click', function(){
     return false;   
 }); 
 
-firebase.database().ref().on("value", function(snapshot){
+// Updates HTML based on our Firebase data
+database.ref().on('child_added', function(childSnapshot){
+    console.log(childSnapshot.val());   
 
-})
+    var trainName = childSnapshot.val().name;
+    var destination = childSnapshot.val().dest;
+    var firstTrain = childSnapshot.val().first;
+    var frequency = childSnapshot.val().freq;
+
+
+    // Train info
+    console.log(trainName);
+    console.log(destination);
+    console.log(firstTrain);
+    console.log(frequency);
+
+    // First time
+    var firstTimeConverted = moment(firstTrain, "hh:mm").subtract(1, "years");   
+    console.log(firstTimeConverted);    
+
+    // Current time
+    var currentTime = moment(); 
+    console.log("Current Time: " + moment(currentTime).format("HH:mm"))
+
+    // Difference between times
+    var diffTime = moment().diff(moment(firstTimeConverted), "minutes");    
+    console.log("Difference in Time: " + diffTime);  
+
+    // Time apart (remainder)
+    var tRemainder = diffTime % frequency;  
+    console.log(tRemainder);    
+
+    // Mins until train
+    var tMinutesTillTrain = frequency - tRemainder; 
+    console.log("Minutes Until Train: " + tMinutesTillTrain);   
+
+    // Next train
+    var nextTrain = moment().add(tMinutesTillTrain, "minutes").format("hh:mm"); 
+    console.log("Arrival Time: " + nextTrain);  
+
+    $("#train-content").append("<tr><td>" + trainName + "</td><td>" + destination + "</td><td>" + frequency + "</td><td>" + nextTrain + "</td><td>" + tMinutesTillTrain + "</td></tr>");
+
+}); 
+
+function play(){
+    var audio = $("#audio");
+    audio.play();
+};
